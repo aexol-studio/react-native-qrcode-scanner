@@ -38,6 +38,7 @@ export default class QRCodeScanner extends Component {
     showMarker: PropTypes.bool,
     cameraType: PropTypes.oneOf(['front', 'back']),
     customMarker: PropTypes.element,
+    customMakerLabel: PropTypes.element,
     containerStyle: PropTypes.any,
     cameraStyle: PropTypes.any,
     cameraContainerStyle: PropTypes.any,
@@ -271,6 +272,11 @@ export default class QRCodeScanner extends Component {
     return null;
   }
 
+  _renderCameraMakerLabel() {
+    if (this.props.customMakerLabel && this.props.customMarker)
+      return this.props.customMakerLabel;
+  }
+
   _renderCameraComponent() {
     return (
       <Camera
@@ -287,6 +293,7 @@ export default class QRCodeScanner extends Component {
         {...this.props.cameraProps}
       >
         {this._renderCameraMarker()}
+        {this._renderCameraMakerLabel()}
       </Camera>
     );
   }
@@ -350,7 +357,9 @@ export default class QRCodeScanner extends Component {
         <View style={[styles.infoView, this.props.topViewStyle]}>
           {this._renderTopContent()}
         </View>
-        <View style={this.props.cameraContainerStyle}>{this._renderCamera()}</View>
+        <View style={this.props.cameraContainerStyle}>
+          {this._renderCamera()}
+        </View>
         <View style={[styles.infoView, this.props.bottomViewStyle]}>
           {this._renderBottomContent()}
         </View>
@@ -371,12 +380,9 @@ const styles = StyleSheet.create({
   },
 
   camera: {
-    flex: 0,
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'transparent',
-    height: Dimensions.get('window').width,
-    width: Dimensions.get('window').width,
   },
 
   rectangleContainer: {

@@ -14,6 +14,7 @@ export interface RNQRCodeScannerProps {
   reactivateTimeout?: number;
   fadeIn?: boolean;
   showMarker?: boolean;
+  customMakerLabel?: JSX.Element;
   cameraType?: 'front' | 'back';
   customMarker?: JSX.Element;
   containerStyle?: StyleProp<ViewStyle>;
@@ -55,6 +56,7 @@ export default class QRCodeScanner extends Component<
   _renderBottomContent(): JSX.Element | null;
   _renderCameraMarker(): JSX.Element | null;
   _renderCameraComponent(): JSX.Element | null;
+  _render_renderCameraMakerLabel(): JSX.Element | null;
   _renderCamera(): JSX.Element;
   reactivate(): void;
 }
